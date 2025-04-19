@@ -22,6 +22,10 @@ export function EventCard({ event }: EventCardProps) {
           src={event.image}
           alt={event.title}
           className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.src = "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&auto=format&fit=crop";
+          }}
         />
         {event.featured && (
           <Badge className="absolute top-2 left-2 bg-solana-purple/90 backdrop-blur-sm">

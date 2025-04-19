@@ -1,4 +1,3 @@
-
 import { v4 as uuidv4 } from 'uuid';
 
 export interface Event {
@@ -9,18 +8,18 @@ export interface Event {
   date: string;
   time: string;
   venue: string;
-  location: string;  // Added this field
+  location: string;
   category: string;
   organizer: string;
   ticketPrice: number;
-  price: number;      // Added this field
-  currency: string;   // Added this field
+  price: number;
+  currency: string;
   totalTickets: number;
   soldTickets: number;
-  availableTickets: number; // Added this field
-  featured: boolean;  // Added this field
-  resaleEnabled: boolean; // Added this field
-  resalePriceCap?: number; // Added this field
+  availableTickets: number;
+  featured: boolean;
+  resaleEnabled: boolean;
+  resalePriceCap?: number;
 }
 
 export interface Ticket {
@@ -28,11 +27,11 @@ export interface Ticket {
   eventId: string;
   name: string;
   price: number;
-  currency: string; // Added this field
+  currency: string;
   available: boolean;
-  seatNumber: string; // Added this field
-  status: string; // Added this field
-  mintAddress?: string; // Added this field
+  seatNumber: string;
+  status: string;
+  mintAddress?: string;
 }
 
 export interface Auction {
@@ -46,11 +45,11 @@ export interface Auction {
   status: string;
   endTime: string;
   bids: Bid[];
-  highestBidder?: string; // Added this field
+  highestBidder?: string;
 }
 
 export interface Bid {
-  id: string; // Added this field
+  id: string;
   bidder: string;
   amount: number;
   timestamp: string;
@@ -64,7 +63,6 @@ export interface User {
   bids: string[];
 }
 
-// Mock users data
 export const users = [
   {
     id: "user1",
@@ -80,7 +78,7 @@ export const events = [
     id: "evt1",
     title: "Solana Summer Hackathon 2025",
     description: "Join the biggest Solana hackathon of the summer...",
-    image: "/events/hackathon.jpg",
+    image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&auto=format&fit=crop",
     date: "2025-07-15",
     time: "09:00",
     venue: "Virtual Event",
@@ -101,7 +99,7 @@ export const events = [
     id: "evt2",
     title: "DeFi Summit 2025",
     description: "Explore the future of decentralized finance at DeFi Summit 2025.",
-    image: "/events/defi.jpg",
+    image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&auto=format&fit=crop",
     date: "2025-08-20",
     time: "10:00",
     venue: "New York, NY",
@@ -122,7 +120,7 @@ export const events = [
     id: "evt3",
     title: "Metaplex Art Exhibition",
     description: "A showcase of the best digital art powered by Metaplex.",
-    image: "/events/art.jpg",
+    image: "https://images.unsplash.com/photo-1561214115-f2f134cc4912?w=800&auto=format&fit=crop",
     date: "2025-09-05",
     time: "14:00",
     venue: "Miami, FL",
@@ -143,7 +141,7 @@ export const events = [
     id: "evt4",
     title: "Web3 Gaming Conference",
     description: "Discover the latest trends in blockchain gaming.",
-    image: "/events/gaming.jpg",
+    image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=800&auto=format&fit=crop",
     date: "2025-10-10",
     time: "09:30",
     venue: "Online",
@@ -164,7 +162,7 @@ export const events = [
     id: "evt5",
     title: "Blockchain Developers Workshop",
     description: "Hands-on workshop for building decentralized applications.",
-    image: "/events/workshop.jpg",
+    image: "https://images.unsplash.com/photo-1591267990532-e5bdb1b0ceb8?w=800&auto=format&fit=crop",
     date: "2025-11-15",
     time: "11:00",
     venue: "San Francisco, CA",

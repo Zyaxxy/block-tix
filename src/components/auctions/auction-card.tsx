@@ -40,6 +40,10 @@ export function AuctionCard({ auction, event, ticket }: AuctionCardProps) {
           src={event.image}
           alt={event.title}
           className="object-cover w-full aspect-video group-hover:opacity-90 transition-opacity duration-300"
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.src = "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&auto=format&fit=crop";
+          }}
         />
         <Badge className="absolute top-2 left-2 bg-solana-blue/90 backdrop-blur-sm group-hover:bg-solana-purple transition-colors duration-300">
           {isEnded ? "Auction Ended" : "Active Auction"}
