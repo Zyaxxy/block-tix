@@ -1,3 +1,4 @@
+
 import { Connection, PublicKey, Transaction } from '@solana/web3.js';
 import { Program, AnchorProvider } from '@project-serum/anchor';
 import { TicketNFTMetadata } from '@/types/nft-metadata';
@@ -30,13 +31,16 @@ export interface Ticket {
 
 export class SolanaTicketService {
   private connection: Connection;
-  private program: Program;
+  private program: Program | null;
   private PROGRAM_ID = new PublicKey('Tick9THCKNdYPEJ6PUWTVZR8RfxLk4HEbnQBEpTs1W');
 
-  constructor(connection: Connection, provider: AnchorProvider) {
+  constructor(connection: Connection, provider: AnchorProvider | null) {
     this.connection = connection;
+    this.program = null;
     // In a real implementation, we would load the program here
-    // this.program = new Program(IDL, this.PROGRAM_ID, provider);
+    // if (provider) {
+    //   this.program = new Program(IDL, this.PROGRAM_ID, provider);
+    // }
   }
 
   async initializeEvent(

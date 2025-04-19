@@ -14,9 +14,13 @@ export function useSolanaTicket() {
 
   useEffect(() => {
     if (walletAddress) {
-      // In a real implementation, we would initialize the connection and provider here
-      const connection = new Connection('https://api.devnet.solana.com');
-      setTicketService(new SolanaTicketService(connection, null));
+      try {
+        // Initialize connection to Solana devnet
+        const connection = new Connection('https://api.devnet.solana.com');
+        setTicketService(new SolanaTicketService(connection, null));
+      } catch (error) {
+        console.error("Error initializing Solana ticket service:", error);
+      }
     }
   }, [walletAddress]);
 
@@ -36,6 +40,11 @@ export function useSolanaTicket() {
 
     setIsLoading(true);
     try {
+      // Make sure we have a valid event ID before creating a PublicKey
+      if (!eventId || eventId.length < 32) {
+        throw new Error("Invalid event ID format");
+      }
+      
       const eventPublicKey = new PublicKey(eventId);
       const buyerPublicKey = new PublicKey(walletAddress);
       
@@ -60,7 +69,7 @@ export function useSolanaTicket() {
       console.error('Error minting ticket:', error);
       toast({
         title: "Error",
-        description: "Failed to mint ticket",
+        description: "Failed to mint ticket: " + (error instanceof Error ? error.message : "Unknown error"),
         variant: "destructive"
       });
       return null;

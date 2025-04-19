@@ -9,6 +9,7 @@ import { useWallet } from "@/contexts/WalletContext";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Card, CardContent } from "@/components/ui/card";
 import { formatDate } from "@/lib/utils";
+import { Keypair } from "@solana/web3.js";
 
 interface BuyTicketProps {
   eventId: string;
@@ -35,6 +36,16 @@ export function BuyTicket({
   const { toast } = useToast();
   const { mintTicket, isReady } = useSolanaTicket();
   const { walletAddress, addNFT, balance } = useWallet();
+
+  // Convert eventId to a valid Solana PublicKey format
+  const getSolanaEventId = (id: string) => {
+    // Create a deterministic public key from the event ID
+    const eventSeed = new TextEncoder().encode(id);
+    const eventKeypair = Keypair.fromSeed(
+      Uint8Array.from(eventSeed.slice(0, 32)) // Ensure it's exactly 32 bytes
+    );
+    return eventKeypair.publicKey.toString();
+  };
 
   const handleBuyTicket = async () => {
     if (!walletAddress || !isReady) {
@@ -80,9 +91,12 @@ export function BuyTicket({
         ticketPrice * 1000000000 // convert SOL to lamports
       );
 
+      // Convert the eventId to a valid Solana public key format
+      const solanaEventId = getSolanaEventId(eventId);
+
       // Mint the ticket NFT
       const result = await mintTicket(
-        eventId,
+        solanaEventId,
         `${section}${row}${seat}`,
         metadata
       );

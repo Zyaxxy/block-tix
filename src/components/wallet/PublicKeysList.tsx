@@ -22,9 +22,15 @@ export function PublicKeysList({ publicKeys }: PublicKeysListProps) {
       
       for (const address of publicKeys) {
         try {
-          const publicKey = new PublicKey(address);
-          const balanceInLamports = await connection.getBalance(publicKey);
-          balanceMap[address] = balanceInLamports / LAMPORTS_PER_SOL;
+          // Validate the public key format before creating PublicKey
+          if (address && address.length >= 32) {
+            const publicKey = new PublicKey(address);
+            const balanceInLamports = await connection.getBalance(publicKey);
+            balanceMap[address] = balanceInLamports / LAMPORTS_PER_SOL;
+          } else {
+            console.warn(`Invalid public key format: ${address}`);
+            balanceMap[address] = 0;
+          }
         } catch (error) {
           console.error(`Error fetching balance for ${address}:`, error);
           balanceMap[address] = 0;
