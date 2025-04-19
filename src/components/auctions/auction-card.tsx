@@ -72,7 +72,7 @@ export function AuctionCard({ auction, event, ticket }: AuctionCardProps) {
         <div className="flex items-center justify-between">
           <div className="flex items-center text-sm space-x-2">
             <Banknote className="h-4 w-4" />
-            <span>Starting bid: {formatPrice(auction.startPrice, auction.currency)}</span>
+            <span>Starting bid: {formatPrice(auction.startingPrice, auction.currency)}</span>
           </div>
         </div>
         {auction.highestBidder && (

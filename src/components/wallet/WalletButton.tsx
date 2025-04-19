@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useWallet } from "@/contexts/WalletContext";
-import { ArrowDown, ArrowUp, Swap, Activity } from "lucide-react";
+import { ArrowDown, ArrowUp, ArrowLeftRight, Activity } from "lucide-react";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
@@ -42,7 +42,7 @@ export function WalletButton() {
       case 'send':
         return <ArrowUp className="h-4 w-4 text-red-500" />;
       case 'swap':
-        return <Swap className="h-4 w-4 text-blue-500" />;
+        return <ArrowLeftRight className="h-4 w-4 text-blue-500" />;
       default:
         return <Activity className="h-4 w-4" />;
     }
@@ -90,7 +90,7 @@ export function WalletButton() {
               <span className="text-xs">Send</span>
             </Button>
             <Button variant="outline" className="flex flex-col items-center p-4">
-              <Swap className="h-5 w-5 mb-1" />
+              <ArrowLeftRight className="h-5 w-5 mb-1" />
               <span className="text-xs">Swap</span>
             </Button>
           </div>
