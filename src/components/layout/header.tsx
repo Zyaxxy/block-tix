@@ -1,22 +1,18 @@
-
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Bell, Menu, Ticket, Wallet } from "lucide-react";
+import { Bell, Menu, Ticket } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useToast } from "@/components/ui/use-toast";
-import { shortenAddress } from "@/lib/utils";
 import { useWallet } from "@/contexts/WalletContext";
 import { BurgerMenu } from "./burger-menu";
-import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
-import { WalletDashboard } from "@/components/wallet/WalletDashboard";
 import { WalletConnect } from "@/components/wallet/WalletConnect";
+import { WalletButton } from "@/components/wallet/WalletButton";
 
 export function Header() {
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
   const { walletAddress, isWalletCreated } = useWallet();
 
-  return <header className="border-b bg-card">
+  return (
+    <header className="border-b bg-card">
       <div className="container mx-auto px-4 flex items-center justify-between h-16">
         <div className="flex items-center space-x-4">
           <Button 
@@ -60,28 +56,13 @@ export function Header() {
                 <span className="absolute top-0 right-0 h-2 w-2 rounded-full bg-primary" />
                 <span className="sr-only">Notifications</span>
               </Button>
-              
-              <Drawer>
-                <DrawerTrigger asChild>
-                  <div className="flex items-center space-x-2 cursor-pointer">
-                    <div className="text-right hidden md:block">
-                      <p className="text-sm font-medium">{shortenAddress(walletAddress)}</p>
-                    </div>
-                    <Avatar>
-                      <AvatarImage src={`https://api.dicebear.com/7.x/identicon/svg?seed=${walletAddress}`} alt="User" />
-                      <AvatarFallback>U</AvatarFallback>
-                    </Avatar>
-                  </div>
-                </DrawerTrigger>
-                <DrawerContent className="h-[80vh]">
-                  <WalletDashboard />
-                </DrawerContent>
-              </Drawer>
+              <WalletButton />
             </>
           ) : (
             <WalletConnect />
           )}
         </div>
       </div>
-    </header>;
+    </header>
+  );
 }
