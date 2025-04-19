@@ -85,7 +85,7 @@ export function Footer() {
           </div>
         </div>
         <div className="border-t mt-8 pt-6 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-muted-foreground text-sm">
+          <p className="text-muted-foreground text-sm text-center">
             &copy; {new Date().getFullYear()} SolanaTickets. All rights reserved.
           </p>
           <div className="flex space-x-4 mt-4 md:mt-0">
