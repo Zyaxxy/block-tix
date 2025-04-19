@@ -1,3 +1,4 @@
+
 import { v4 as uuidv4 } from 'uuid';
 
 export interface Event {
@@ -8,11 +9,18 @@ export interface Event {
   date: string;
   time: string;
   venue: string;
+  location: string;  // Added this field
   category: string;
   organizer: string;
   ticketPrice: number;
+  price: number;      // Added this field
+  currency: string;   // Added this field
   totalTickets: number;
   soldTickets: number;
+  availableTickets: number; // Added this field
+  featured: boolean;  // Added this field
+  resaleEnabled: boolean; // Added this field
+  resalePriceCap?: number; // Added this field
 }
 
 export interface Ticket {
@@ -20,7 +28,11 @@ export interface Ticket {
   eventId: string;
   name: string;
   price: number;
+  currency: string; // Added this field
   available: boolean;
+  seatNumber: string; // Added this field
+  status: string; // Added this field
+  mintAddress?: string; // Added this field
 }
 
 export interface Auction {
@@ -34,13 +46,34 @@ export interface Auction {
   status: string;
   endTime: string;
   bids: Bid[];
+  highestBidder?: string; // Added this field
 }
 
 export interface Bid {
+  id: string; // Added this field
   bidder: string;
   amount: number;
   timestamp: string;
 }
+
+export interface User {
+  id: string;
+  walletAddress: string;
+  balance: number;
+  tickets: string[];
+  bids: string[];
+}
+
+// Mock users data
+export const users = [
+  {
+    id: "user1",
+    walletAddress: "3Eq1dtcPnC4WuPpW3ugCcxwXzWwEXUkgkTU89rQRWCdQ",
+    balance: 10.5,
+    tickets: ["tkt1", "tkt3"],
+    bids: ["bid1", "bid2"]
+  }
+];
 
 export const events = [
   {
@@ -51,11 +84,18 @@ export const events = [
     date: "2025-07-15",
     time: "09:00",
     venue: "Virtual Event",
+    location: "Virtual Event",
     category: "Technology",
     organizer: "Solana Foundation",
-    ticketPrice: 1, // Changed from USDC to SOL
+    ticketPrice: 1,
+    price: 1,
+    currency: "SOL",
     totalTickets: 1000,
-    soldTickets: 450
+    soldTickets: 450,
+    availableTickets: 550,
+    featured: true,
+    resaleEnabled: true,
+    resalePriceCap: 1.5
   },
   {
     id: "evt2",
@@ -65,11 +105,18 @@ export const events = [
     date: "2025-08-20",
     time: "10:00",
     venue: "New York, NY",
+    location: "New York, NY",
     category: "Finance",
     organizer: "DeFi Events Inc.",
-    ticketPrice: 0.5, // Changed from USDC to SOL
+    ticketPrice: 0.5,
+    price: 0.5,
+    currency: "SOL",
     totalTickets: 500,
-    soldTickets: 320
+    soldTickets: 320,
+    availableTickets: 180,
+    featured: false,
+    resaleEnabled: true,
+    resalePriceCap: 0.75
   },
   {
     id: "evt3",
@@ -79,11 +126,18 @@ export const events = [
     date: "2025-09-05",
     time: "14:00",
     venue: "Miami, FL",
+    location: "Miami, FL",
     category: "Art",
     organizer: "Metaplex Studios",
-    ticketPrice: 2, // Changed from USDC to SOL
+    ticketPrice: 2,
+    price: 2,
+    currency: "SOL",
     totalTickets: 300,
-    soldTickets: 280
+    soldTickets: 280,
+    availableTickets: 20,
+    featured: false,
+    resaleEnabled: false,
+    resalePriceCap: 0
   },
   {
     id: "evt4",
@@ -93,11 +147,18 @@ export const events = [
     date: "2025-10-10",
     time: "09:30",
     venue: "Online",
+    location: "Online",
     category: "Gaming",
     organizer: "Web3 Gaming Corp",
-    ticketPrice: 0.75, // Changed from USDC to SOL
+    ticketPrice: 0.75,
+    price: 0.75,
+    currency: "SOL",
     totalTickets: 1500,
-    soldTickets: 1200
+    soldTickets: 1200,
+    availableTickets: 300,
+    featured: true,
+    resaleEnabled: true,
+    resalePriceCap: 1.0
   },
   {
     id: "evt5",
@@ -107,11 +168,18 @@ export const events = [
     date: "2025-11-15",
     time: "11:00",
     venue: "San Francisco, CA",
+    location: "San Francisco, CA",
     category: "Technology",
     organizer: "Blockchain Academy",
-    ticketPrice: 1.2, // Changed from USDC to SOL
+    ticketPrice: 1.2,
+    price: 1.2,
+    currency: "SOL",
     totalTickets: 200,
-    soldTickets: 180
+    soldTickets: 180,
+    availableTickets: 20,
+    featured: false,
+    resaleEnabled: false,
+    resalePriceCap: 0
   }
 ];
 
@@ -123,8 +191,11 @@ export function generateTickets(count: number = 5): Ticket[] {
       id: `tkt${i}`,
       eventId: event.id,
       name: `${event.title} Ticket ${i}`,
-      price: event.ticketPrice,
-      available: true
+      price: event.price,
+      currency: event.currency,
+      available: true,
+      seatNumber: `A${i}`,
+      status: i % 3 === 0 ? 'minted' : 'purchased'
     });
   }
   return tickets;
@@ -136,16 +207,18 @@ export function generateAuctions() {
       id: "auc1",
       eventId: "evt1",
       ticketId: "tkt1",
-      currentPrice: 1.5, // Changed from USDC to SOL
-      startingPrice: 1,  // Changed from USDC to SOL
-      minBidIncrement: 0.1, // Changed from USDC to SOL
-      currency: "SOL",   // Updated currency
+      currentPrice: 1.5,
+      startingPrice: 1,
+      minBidIncrement: 0.1,
+      currency: "SOL",
       status: "active",
       endTime: new Date(Date.now() + 1000 * 60 * 60 * 24).toISOString(),
+      highestBidder: "0x123",
       bids: [
         {
+          id: "bid1",
           bidder: "0x123",
-          amount: 1.5,  // Changed from USDC to SOL
+          amount: 1.5,
           timestamp: new Date(Date.now() - 1000 * 60 * 30).toISOString()
         }
       ]
@@ -154,21 +227,24 @@ export function generateAuctions() {
       id: "auc2",
       eventId: "evt2",
       ticketId: "tkt2",
-      currentPrice: 0.8,  // Changed from USDC to SOL
-      startingPrice: 0.5, // Changed from USDC to SOL
-      minBidIncrement: 0.05, // Changed from USDC to SOL
-      currency: "SOL",   // Updated currency
+      currentPrice: 0.8,
+      startingPrice: 0.5,
+      minBidIncrement: 0.05,
+      currency: "SOL",
       status: "active",
       endTime: new Date(Date.now() + 1000 * 60 * 60 * 12).toISOString(),
+      highestBidder: "0x789",
       bids: [
         {
+          id: "bid2",
           bidder: "0x456",
-          amount: 0.7,  // Changed from USDC to SOL
+          amount: 0.7,
           timestamp: new Date(Date.now() - 1000 * 60 * 45).toISOString()
         },
         {
+          id: "bid3",
           bidder: "0x789",
-          amount: 0.8,  // Changed from USDC to SOL
+          amount: 0.8,
           timestamp: new Date(Date.now() - 1000 * 60 * 20).toISOString()
         }
       ]
@@ -177,21 +253,24 @@ export function generateAuctions() {
       id: "auc3",
       eventId: "evt3",
       ticketId: "tkt3",
-      currentPrice: 2.5,  // Changed from USDC to SOL
-      startingPrice: 2, // Changed from USDC to SOL
-      minBidIncrement: 0.2, // Changed from USDC to SOL
-      currency: "SOL",   // Updated currency
+      currentPrice: 2.5,
+      startingPrice: 2,
+      minBidIncrement: 0.2,
+      currency: "SOL",
       status: "ended",
       endTime: new Date(Date.now() - 1000 * 60 * 60 * 3).toISOString(),
+      highestBidder: "0xdef",
       bids: [
         {
+          id: "bid4",
           bidder: "0xabc",
-          amount: 2.3,  // Changed from USDC to SOL
+          amount: 2.3,
           timestamp: new Date(Date.now() - 1000 * 60 * 70).toISOString()
         },
         {
+          id: "bid5",
           bidder: "0xdef",
-          amount: 2.5,  // Changed from USDC to SOL
+          amount: 2.5,
           timestamp: new Date(Date.now() - 1000 * 60 * 30).toISOString()
         }
       ]
@@ -200,21 +279,24 @@ export function generateAuctions() {
       id: "auc4",
       eventId: "evt4",
       ticketId: "tkt4",
-      currentPrice: 1,  // Changed from USDC to SOL
-      startingPrice: 0.75, // Changed from USDC to SOL
-      minBidIncrement: 0.05, // Changed from USDC to SOL
-      currency: "SOL",   // Updated currency
+      currentPrice: 1,
+      startingPrice: 0.75,
+      minBidIncrement: 0.05,
+      currency: "SOL",
       status: "active",
       endTime: new Date(Date.now() + 1000 * 60 * 60 * 6).toISOString(),
+      highestBidder: "0xbabe",
       bids: [
         {
+          id: "bid6",
           bidder: "0xcafe",
-          amount: 0.9,  // Changed from USDC to SOL
+          amount: 0.9,
           timestamp: new Date(Date.now() - 1000 * 60 * 15).toISOString()
         },
         {
+          id: "bid7",
           bidder: "0xbabe",
-          amount: 1,  // Changed from USDC to SOL
+          amount: 1,
           timestamp: new Date(Date.now() - 1000 * 60 * 5).toISOString()
         }
       ]
@@ -223,21 +305,24 @@ export function generateAuctions() {
       id: "auc5",
       eventId: "evt5",
       ticketId: "tkt5",
-      currentPrice: 1.8,  // Changed from USDC to SOL
-      startingPrice: 1.2, // Changed from USDC to SOL
-      minBidIncrement: 0.1, // Changed from USDC to SOL
-      currency: "SOL",   // Updated currency
+      currentPrice: 1.8,
+      startingPrice: 1.2,
+      minBidIncrement: 0.1,
+      currency: "SOL",
       status: "ended",
       endTime: new Date(Date.now() - 1000 * 60 * 60 * 12).toISOString(),
+      highestBidder: "0xbeef",
       bids: [
         {
+          id: "bid8",
           bidder: "0xfeed",
-          amount: 1.5,  // Changed from USDC to SOL
+          amount: 1.5,
           timestamp: new Date(Date.now() - 1000 * 60 * 80).toISOString()
         },
         {
+          id: "bid9",
           bidder: "0xbeef",
-          amount: 1.8,  // Changed from USDC to SOL
+          amount: 1.8,
           timestamp: new Date(Date.now() - 1000 * 60 * 40).toISOString()
         }
       ]
