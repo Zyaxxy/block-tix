@@ -1,3 +1,4 @@
+
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { format } from "date-fns";
@@ -45,18 +46,22 @@ export function logTransaction(
   localStorage.setItem('transactions', JSON.stringify(transactions));
 }
 // Format price to display as currency
-export function formatPrice(price: number): string {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: 2
-  }).format(price);
+export function formatPrice(price: number, currency: string = "USD"): string {
+  if (currency === "USD") {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2
+    }).format(price);
+  }
+  return `${price.toFixed(2)} ${currency}`;
 }
+
 export async function connectWallet() {
   // Implement your Solana wallet connection logic here
   console.log("Connecting wallet...");
-  // Return wallet or connection information
-  return { connected: true };
+  // Return wallet address as string
+  return "sample-wallet-address";
 }
 
 // Define specific types for ticket metadata attributes
@@ -74,13 +79,13 @@ interface TicketMetadata {
 }
 
 // Main ticket data interface
-interface TicketData {
+export interface TicketData {
   price: number;
   quantity: number;
   metadata?: TicketMetadata;
 }
 
-export async function mintTicket(eventId: string, ticketData: TicketData) {
+export async function mintTicket(eventId: string, ticketData?: TicketData) {
   // Implement your Solana ticket minting logic here
   console.log(`Minting ticket for event ${eventId}`, ticketData);
   // Return transaction information

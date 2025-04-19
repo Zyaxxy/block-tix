@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { MainLayout } from "@/components/layout/main-layout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
-import { connectWallet } from "@/lib/utils";
 import { events, generateAuctions, generateTickets, users } from "@/lib/mock-data";
 import { ConnectWallet } from "@/components/dashboard/connect-wallet";
 import { DashboardHeader } from "@/components/dashboard/dashboard-header";
@@ -96,4 +95,13 @@ export default function Dashboard() {
       </div>
     </MainLayout>
   );
+}
+
+// Helper function for wallet connection
+function connectWallet(): Promise<string> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve("sample-wallet-address");
+    }, 1000);
+  });
 }

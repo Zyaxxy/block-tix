@@ -112,7 +112,7 @@ export default function EventDetails() {
               <Card className="w-full backdrop-blur-md bg-white/10 border-white/20">
                 <CardContent className="p-6">
                   <div className="text-center mb-6">
-                    <h3 className="text-2xl font-bold mb-1">{formatPrice(event.price, event.currency)}</h3>
+                    <h3 className="text-2xl font-bold mb-1">{formatPrice(event.price)}</h3>
                     <p className="text-white/60">per ticket</p>
                   </div>
                   <div className="space-y-4">
@@ -131,7 +131,7 @@ export default function EventDetails() {
                     {event.resaleEnabled && (
                       <div className="flex items-center justify-between">
                         <span>Resale Cap</span>
-                        <span>{formatPrice(event.resalePriceCap, event.currency)}</span>
+                        <span>{formatPrice(event.resalePriceCap)}</span>
                       </div>
                     )}
                     <Separator className="bg-white/20" />
@@ -169,7 +169,7 @@ export default function EventDetails() {
                     </div>
                     <div className="flex items-center justify-between font-semibold">
                       <span>Total</span>
-                      <span>{formatPrice(event.price * quantity, event.currency)}</span>
+                      <span>{formatPrice(event.price * quantity)}</span>
                     </div>
                     
                     <BuyTicket

@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { Keypair } from '@solana/web3.js';
 
@@ -18,10 +19,12 @@ export interface WalletContextType {
   isOnboarded: boolean;
   balance: number;
   nfts: NFT[];
+  mnemonic: string | null;
   createWallet: () => Promise<{ address: string }>;
   completeOnboarding: () => void;
   addFunds: (amount: number) => void;
   addNFT: (nft: NFT) => void;
+  resetMnemonic: () => void;
 }
 
 // Create the context with default values
@@ -31,10 +34,12 @@ const WalletContext = createContext<WalletContextType>({
   isOnboarded: false,
   balance: 0,
   nfts: [],
+  mnemonic: null,
   createWallet: async () => ({ address: '' }),
   completeOnboarding: () => {},
   addFunds: () => {},
-  addNFT: () => {}
+  addNFT: () => {},
+  resetMnemonic: () => {}
 });
 
 // Provider component
@@ -48,6 +53,7 @@ export const WalletProvider: React.FC<WalletProviderProps> = ({ children }) => {
   const [isOnboarded, setIsOnboarded] = useState(false);
   const [balance, setBalance] = useState(0);
   const [nfts, setNfts] = useState<NFT[]>([]);
+  const [mnemonic, setMnemonic] = useState<string | null>(null);
 
   // Initialize from localStorage on component mount
   useEffect(() => {
@@ -70,6 +76,8 @@ export const WalletProvider: React.FC<WalletProviderProps> = ({ children }) => {
     // For now, we'll simulate it with a random address
     const address = `${Math.random().toString(36).substring(2, 15)}`;
     
+    // Generate a mock mnemonic
+    setMnemonic("example mnemonic phrase for wallet recovery");
     setWalletAddress(address);
     setIsWalletCreated(true);
     
@@ -78,6 +86,10 @@ export const WalletProvider: React.FC<WalletProviderProps> = ({ children }) => {
     localStorage.setItem('isWalletCreated', 'true');
     
     return { address };
+  };
+
+  const resetMnemonic = () => {
+    setMnemonic(null);
   };
 
   // Complete onboarding function
@@ -108,10 +120,12 @@ export const WalletProvider: React.FC<WalletProviderProps> = ({ children }) => {
         isOnboarded,
         balance,
         nfts,
+        mnemonic,
         createWallet,
         completeOnboarding,
         addFunds,
-        addNFT
+        addNFT,
+        resetMnemonic
       }}
     >
       {children}
