@@ -1,11 +1,9 @@
-
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Event, Ticket } from "@/lib/mock-data";
 import { formatDate, formatPrice } from "@/lib/utils";
 import { Calendar, ExternalLink, MapPin, QrCode, Ticket as TicketIcon } from "lucide-react";
-import { Link } from "react-router-dom";
 
 interface TicketCardProps {
   ticket: Ticket;
@@ -14,7 +12,7 @@ interface TicketCardProps {
 
 export function TicketCard({ ticket, event }: TicketCardProps) {
   return (
-    <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300 h-full flex flex-col ticket-card-gradient">
+    <Card className="overflow-hidden group hover:scale-105 transition-all duration-300 h-full flex flex-col bg-gradient-to-br from-orange-50 to-pink-50 dark:from-orange-900/20 dark:to-pink-900/20 hover:shadow-lg hover:shadow-orange-500/10">
       <CardHeader className="pb-2 relative">
         <div className="absolute -top-6 -right-6 bg-solana-purple/10 w-20 h-20 rounded-full blur-xl"/>
         <div className="absolute -bottom-6 -left-6 bg-solana-blue/10 w-20 h-20 rounded-full blur-xl"/>

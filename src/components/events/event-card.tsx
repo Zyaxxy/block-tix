@@ -16,15 +16,15 @@ export function EventCard({ event }: EventCardProps) {
   const isAlmostSoldOut = event.availableTickets <= event.totalTickets * 0.1;
 
   return (
-    <Card className="overflow-hidden transition-all duration-300 hover:shadow-lg h-full flex flex-col">
+    <Card className="overflow-hidden group hover:scale-105 transition-all duration-300 h-full flex flex-col bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 hover:shadow-lg hover:shadow-emerald-500/10">
       <Link to={`/events/${event.id}`} className="relative block overflow-hidden aspect-video">
         <img
           src={event.image}
           alt={event.title}
-          className="object-cover w-full h-full transition-transform duration-300 hover:scale-105"
+          className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
         />
         {event.featured && (
-          <Badge className="absolute top-2 left-2 bg-solana-purple">
+          <Badge className="absolute top-2 left-2 bg-solana-purple/90 backdrop-blur-sm">
             Featured
           </Badge>
         )}

@@ -16,7 +16,7 @@ interface AuctionCardProps {
 export function AuctionCard({ auction, event, ticket }: AuctionCardProps) {
   const isEnded = new Date(auction.endTime) < new Date();
   const timeLeft = getTimeLeft(auction.endTime);
-
+  
   function getTimeLeft(endTime: string): string {
     const end = new Date(endTime);
     const now = new Date();
@@ -34,14 +34,14 @@ export function AuctionCard({ auction, event, ticket }: AuctionCardProps) {
   }
 
   return (
-    <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300 h-full flex flex-col">
+    <Card className="overflow-hidden group hover:scale-105 transition-all duration-300 h-full flex flex-col bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 hover:shadow-lg hover:shadow-purple-500/10">
       <div className="relative">
         <img
           src={event.image}
           alt={event.title}
-          className="object-cover w-full aspect-video"
+          className="object-cover w-full aspect-video group-hover:opacity-90 transition-opacity duration-300"
         />
-        <Badge className="absolute top-2 left-2 bg-solana-blue">
+        <Badge className="absolute top-2 left-2 bg-solana-blue/90 backdrop-blur-sm group-hover:bg-solana-purple transition-colors duration-300">
           {isEnded ? "Auction Ended" : "Active Auction"}
         </Badge>
       </div>
