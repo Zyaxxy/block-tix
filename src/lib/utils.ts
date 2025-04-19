@@ -1,7 +1,7 @@
-
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { format } from "date-fns";
+import { Connection, clusterApiUrl, PublicKey } from "@solana/web3.js";
 
 // Combine classes with Tailwind
 export function cn(...inputs: ClassValue[]) {
@@ -45,6 +45,7 @@ export function logTransaction(
   });
   localStorage.setItem('transactions', JSON.stringify(transactions));
 }
+
 // Format price to display as currency
 export function formatPrice(price: number, currency: string = "USD"): string {
   if (currency === "USD") {
@@ -58,10 +59,15 @@ export function formatPrice(price: number, currency: string = "USD"): string {
 }
 
 export async function connectWallet() {
-  // Implement your Solana wallet connection logic here
-  console.log("Connecting wallet...");
-  // Return wallet address as string
-  return "sample-wallet-address";
+  // Connect to Solana devnet
+  const connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
+  console.log("Connecting wallet to Solana devnet...");
+  
+  // In a real app, this would interface with a browser wallet like Phantom
+  // For this implementation, we'll just return the address from localStorage
+  // or a sample address if none exists
+  const savedAddress = localStorage.getItem('walletAddress');
+  return savedAddress || "sample-wallet-address";
 }
 
 // Define specific types for ticket metadata attributes
@@ -90,4 +96,17 @@ export async function mintTicket(eventId: string, ticketData?: TicketData) {
   console.log(`Minting ticket for event ${eventId}`, ticketData);
   // Return transaction information
   return { success: true, txId: "sample-transaction-id" };
+}
+
+// Get Solana balance from devnet
+export async function getSolanaBalance(publicKey: string): Promise<number> {
+  try {
+    const connection = new Connection(clusterApiUrl('devnet'), 'confirmed');
+    const key = new PublicKey(publicKey);
+    const balanceInLamports = await connection.getBalance(key);
+    return balanceInLamports / 1000000000; // Convert lamports to SOL
+  } catch (error) {
+    console.error("Error fetching Solana balance:", error);
+    return 0;
+  }
 }

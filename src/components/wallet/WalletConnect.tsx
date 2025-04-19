@@ -1,23 +1,50 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useWallet } from "@/contexts/WalletContext";
-import { Wallet, Copy } from "lucide-react";
+import { Wallet, Copy, ArrowDown } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { SolanaWalletGenerator } from "./SolanaWalletGenerator";
 import { Keypair } from "@solana/web3.js";
+import { shortenAddress } from "@/lib/utils";
 
 export function WalletConnect() {
-  const { walletAddress, isWalletCreated, createWallet, mnemonic, resetMnemonic } = useWallet();
+  const { 
+    walletAddress, 
+    isWalletCreated, 
+    createWallet, 
+    mnemonic, 
+    resetMnemonic, 
+    balance,
+    refreshBalance,
+    disconnectWallet 
+  } = useWallet();
   const [isCreating, setIsCreating] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
   const [showMnemonic, setShowMnemonic] = useState(false);
   const { toast } = useToast();
 
+  // Refresh balance periodically
+  useEffect(() => {
+    if (isWalletCreated) {
+      const interval = setInterval(() => {
+        refreshBalance();
+      }, 30000); // Every 30 seconds
+      
+      return () => clearInterval(interval);
+    }
+  }, [isWalletCreated, refreshBalance]);
+
   const handleConnect = () => {
-    setShowDialog(true);
+    if (isWalletCreated) {
+      // Show wallet details
+      setShowDialog(true);
+    } else {
+      // Show wallet creation dialog
+      setShowDialog(true);
+    }
   };
 
   const handleCopyAddress = () => {
@@ -37,6 +64,11 @@ export function WalletConnect() {
       setShowMnemonic(true);
     } catch (error) {
       console.error("Error creating wallet:", error);
+      toast({
+        title: "Error",
+        description: "Failed to create wallet",
+        variant: "destructive"
+      });
     } finally {
       setIsCreating(false);
     }
@@ -52,19 +84,40 @@ export function WalletConnect() {
     console.log("Wallet generated:", keypair.publicKey.toString());
   };
 
+  const handleDisconnect = () => {
+    disconnectWallet();
+    toast({
+      title: "Wallet disconnected",
+      description: "Your wallet has been disconnected"
+    });
+    setShowDialog(false);
+  };
+
   return (
     <>
-      <Button onClick={handleConnect} disabled={isWalletCreated} className="flex items-center space-x-2">
+      <Button 
+        onClick={handleConnect} 
+        className="flex items-center space-x-2"
+        variant={isWalletCreated ? "outline" : "default"}
+      >
         <Wallet className="h-4 w-4" />
-        <span>{isWalletCreated ? "Wallet Connected" : "Create Wallet"}</span>
+        {isWalletCreated 
+          ? <span>{shortenAddress(walletAddress || "")} ({balance.toFixed(2)} SOL)</span>
+          : <span>Create Wallet</span>
+        }
       </Button>
 
       <Dialog open={showDialog} onOpenChange={setShowDialog}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Create New Wallet</DialogTitle>
+            <DialogTitle>
+              {isWalletCreated ? "Your Solana Wallet" : "Create New Wallet"}
+            </DialogTitle>
             <DialogDescription>
-              Generate a new Solana wallet to store your tickets and manage your funds.
+              {isWalletCreated 
+                ? "View and manage your Solana wallet"
+                : "Generate a new Solana wallet to store your tickets and manage your funds."
+              }
             </DialogDescription>
           </DialogHeader>
           
@@ -75,10 +128,15 @@ export function WalletConnect() {
             />
           </div>
 
-          <DialogFooter>
+          <DialogFooter className="flex justify-between">
             <Button onClick={handleCloseDialog}>
               Close
             </Button>
+            {isWalletCreated && (
+              <Button variant="destructive" onClick={handleDisconnect}>
+                Disconnect Wallet
+              </Button>
+            )}
           </DialogFooter>
         </DialogContent>
       </Dialog>
