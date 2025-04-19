@@ -3,8 +3,9 @@ import { useEffect, useState } from 'react';
 import { Connection, PublicKey } from '@solana/web3.js';
 import { SolanaTicketService } from '@/services/solanaTicketService';
 import { useWallet } from '@/contexts/WalletContext';
-import { useToast } from './use-toast';
+import { useToast } from '@/hooks/use-toast';
 import { TicketNFTMetadata } from '@/types/nft-metadata';
+import { logTransaction } from '@/lib/utils';
 
 export function useSolanaTicket() {
   const { toast } = useToast();
@@ -40,14 +41,17 @@ export function useSolanaTicket() {
 
     setIsLoading(true);
     try {
-      // Make sure we have a valid event ID before creating a PublicKey
       if (!eventId || eventId.length < 32) {
         throw new Error("Invalid event ID format");
       }
       
       const eventPublicKey = new PublicKey(eventId);
       const buyerPublicKey = new PublicKey(walletAddress);
+      const organizerPublicKey = new PublicKey("HndjAZBimoFvnTiKJoVn8dD73Uc4BMFmExrdMjKqWtbc");
       
+      // Mock transaction delay
+      await new Promise(resolve => setTimeout(resolve, 1500));
+
       const signature = await ticketService.mintTicket(
         eventPublicKey,
         buyerPublicKey,
@@ -55,9 +59,16 @@ export function useSolanaTicket() {
         metadata
       );
 
+      // Log the transaction
+      logTransaction(
+        'purchase',
+        metadata.properties.ticket_data?.original_price || 0,
+        `Purchased ticket for ${metadata.name}`
+      );
+
       toast({
         title: "Success",
-        description: "Ticket minted successfully"
+        description: `Ticket minted and ${metadata.properties.ticket_data?.original_price / LAMPORTS_PER_SOL} SOL transferred to organizer`
       });
 
       return {

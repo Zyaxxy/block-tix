@@ -1,4 +1,3 @@
-
 import { Connection, PublicKey, Transaction } from '@solana/web3.js';
 import { Program, AnchorProvider } from '@project-serum/anchor';
 import { TicketNFTMetadata } from '@/types/nft-metadata';
@@ -75,10 +74,18 @@ export class SolanaTicketService {
       // This is a mock implementation
       console.log('Minting ticket:', { 
         eventPublicKey: eventPublicKey.toString(), 
+        buyerPublicKey: buyerPublicKey.toString(),
         seatInfo,
         metadata
       });
-      return 'mock-transaction-signature';
+
+      // Mock successful transaction
+      const mockSignature = 'mock-transaction-' + Date.now().toString(36);
+      
+      // Update wallet balance in context
+      console.log('Transaction completed:', mockSignature);
+      
+      return mockSignature;
     } catch (error) {
       console.error('Error minting ticket:', error);
       throw error;

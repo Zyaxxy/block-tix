@@ -1,7 +1,6 @@
-
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { Loader2, Ticket } from "lucide-react";
 import { generateTicketNFTMetadata } from "@/types/nft-metadata";
 import { useSolanaTicket } from "@/hooks/useSolanaTicket";
@@ -37,12 +36,10 @@ export function BuyTicket({
   const { mintTicket, isReady } = useSolanaTicket();
   const { walletAddress, addNFT, balance } = useWallet();
 
-  // Convert eventId to a valid Solana PublicKey format
   const getSolanaEventId = (id: string) => {
-    // Create a deterministic public key from the event ID
     const eventSeed = new TextEncoder().encode(id);
     const eventKeypair = Keypair.fromSeed(
-      Uint8Array.from(eventSeed.slice(0, 32)) // Ensure it's exactly 32 bytes
+      Uint8Array.from(eventSeed.slice(0, 32))
     );
     return eventKeypair.publicKey.toString();
   };
@@ -68,15 +65,12 @@ export function BuyTicket({
 
     setIsLoading(true);
     try {
-      // Generate random seat info
-      const section = String.fromCharCode(65 + Math.floor(Math.random() * 5)); // A-E
-      const row = String(Math.floor(Math.random() * 10) + 1); // 1-10
-      const seat = String(Math.floor(Math.random() * 30) + 1); // 1-30
+      const section = String.fromCharCode(65 + Math.floor(Math.random() * 5));
+      const row = String(Math.floor(Math.random() * 10) + 1);
+      const seat = String(Math.floor(Math.random() * 30) + 1);
       
-      // Generate ticket ID
       const ticketId = `tkt_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
       
-      // Create metadata for the ticket NFT
       const metadata = generateTicketNFTMetadata(
         eventName,
         eventDate,
@@ -86,15 +80,12 @@ export function BuyTicket({
         seat,
         eventId,
         ticketId,
-        walletAddress, // creator address is the wallet address
-        undefined, // use default image
-        ticketPrice * 1000000000 // convert SOL to lamports
+        walletAddress,
+        `https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&auto=format&fit=crop`,
+        ticketPrice * 1000000000
       );
 
-      // Convert the eventId to a valid Solana public key format
       const solanaEventId = getSolanaEventId(eventId);
-
-      // Mint the ticket NFT
       const result = await mintTicket(
         solanaEventId,
         `${section}${row}${seat}`,
@@ -102,7 +93,6 @@ export function BuyTicket({
       );
 
       if (result) {
-        // Add NFT to wallet context for display
         addNFT({
           id: ticketId,
           name: metadata.name,
@@ -130,7 +120,6 @@ export function BuyTicket({
     setOpenDialog(false);
     if (purchaseComplete) {
       setPurchaseComplete(false);
-      // Redirect to "My Tickets" or reload
       window.location.href = "/dashboard";
     }
   };
