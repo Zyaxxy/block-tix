@@ -72,7 +72,7 @@ export default function Auth() {
 
       if (error) throw error;
 
-      navigate("/");
+      navigate("/home");
       toast({
         title: "Welcome back!",
         description: "You have successfully logged in."
