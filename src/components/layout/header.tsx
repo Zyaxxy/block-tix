@@ -24,7 +24,7 @@ export function Header() {
           
           <Link to="/" className="flex items-center space-x-2">
             <Ticket className="h-6 w-6 text-primary rounded" />
-            <span className="text-xl hidden sm:inline-block font-semibold">Block Tix</span>
+            <span className="text-xl hidden sm:inline-block font-semibold">Blocktix</span>
           </Link>
           
           <nav className="hidden md:flex items-center space-x-6">

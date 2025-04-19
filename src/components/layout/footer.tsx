@@ -1,16 +1,13 @@
-
 import { Ticket } from "lucide-react";
 import { Link } from "react-router-dom";
-
 export function Footer() {
-  return (
-    <footer className="bg-card border-t mt-auto">
+  return <footer className="bg-card border-t mt-auto">
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <Ticket className="h-6 w-6 text-primary" />
-              <span className="font-bold text-xl">SolanaTickets</span>
+              <span className="font-bold text-xl">Blocktix</span>
             </div>
             <p className="text-muted-foreground text-sm">
               The secure decentralized ticketing platform built on Solana blockchain.
@@ -116,6 +113,5 @@ export function Footer() {
           </div>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 }
