@@ -7,7 +7,7 @@ A Web3-powered event ticketing platform built on **Solana Devnet** that lets use
 
 ## 🚀 Live Project
 
-**URL**: [View Live]((https://blocktix-psi.vercel.app/))
+**URL**: [View Live](https://block-tix.vercel.app/home))
 
 ---
 
