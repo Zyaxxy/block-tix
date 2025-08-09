@@ -15,7 +15,7 @@ const Loading = () => {
     }
   }
   .animate-spinner {
-    animation: spinner-rotate 4s linear infinite;
+    animation: spinner-rotate 6s linear infinite;
     will-change: transform;
   }
   .transform-preserve-3d {
