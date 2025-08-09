@@ -34,7 +34,7 @@ export function AuctionCard({ auction, event, ticket }: AuctionCardProps) {
   }
 
   return (
-    <Card className="overflow-hidden group hover:scale-105 transition-all duration-300 h-full flex flex-col bg-gradient-to-t from-violet-300 via-violet-100 to-white p-6 rounded-2xl shadow-md">
+  <Card className="event-card gradient-border overflow-hidden group hover:scale-105 transition-all duration-300 h-full flex flex-col p-6 rounded-2xl shadow-md">
       <div className="relative">
         <img
           src={event.image}
@@ -45,17 +45,17 @@ export function AuctionCard({ auction, event, ticket }: AuctionCardProps) {
             target.src = "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&auto=format&fit=crop";
           }}
         />
-        <Badge className="absolute top-2 left-2 bg-solana-blue/90 backdrop-blur-sm group-hover:bg-solana-purple transition-colors duration-300">
+        <Badge className="absolute top-2 left-2 score-badge backdrop-blur-sm group-hover:bg-solana-purple transition-colors duration-300">
           {isEnded ? "Auction Ended" : "Active Auction"}
         </Badge>
       </div>
       <CardHeader className="pb-2">
-        <h3 className="text-lg font-semibold line-clamp-1">{event.title}</h3>
-        <div className="flex items-center text-sm text-muted-foreground space-x-2">
+        <h3 className="text-lg font-semibold line-clamp-1 text-gradient font-serif">{event.title}</h3>
+  <div className="flex items-center text-sm text-muted-foreground space-x-2 font-serif">
           <Calendar className="h-4 w-4" />
           <span>{formatDate(event.date)}</span>
         </div>
-        <div className="flex items-center text-sm text-muted-foreground space-x-2">
+  <div className="flex items-center text-sm text-muted-foreground space-x-2 font-serif">
           <MapPin className="h-4 w-4" />
           <span>{event.location}</span>
         </div>

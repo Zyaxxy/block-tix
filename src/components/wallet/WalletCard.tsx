@@ -71,9 +71,9 @@ export function WalletCard() {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <Wallet className="h-5 w-5 text-primary" />
-            <CardTitle className="text-lg">Your Wallet</CardTitle>
+            <CardTitle className="text-lg text-gradient">Your Wallet</CardTitle>
           </div>
-          <Badge variant="outline" className="bg-amber-50 text-amber-800 border-amber-300">
+          <Badge variant="outline" className="score-badge">
             Solana Devnet
           </Badge>
         </div>
@@ -86,7 +86,7 @@ export function WalletCard() {
             <div className="flex items-center gap-2">
               <span className="text-sm">{walletAddress ? shortenAddress(walletAddress) : "Not connected"}</span>
               {walletAddress && (
-                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={handleCopyAddress}>
+                <Button variant="ghost" size="icon" className="auth-button h-6 w-6" onClick={handleCopyAddress}>
                   <Copy className="h-3 w-3" />
                 </Button>
               )}

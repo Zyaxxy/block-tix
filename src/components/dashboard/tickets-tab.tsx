@@ -12,13 +12,13 @@ export function TicketsTab({ tickets, events }: TicketsTabProps) {
   return (
     <>
       <div className="mb-6 flex items-center justify-between">
-        <h2 className="text-2xl font-semibold">
+        <h2 className="text-2xl font-semibold page-heading font-serif">
           Your Tickets ({tickets.length})
         </h2>
       </div>
       
       {tickets.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="events-section grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {tickets.map((ticket) => {
             const event = events.find(e => e.id === ticket.eventId)!;
             return (

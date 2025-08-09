@@ -12,29 +12,29 @@ interface TicketCardProps {
 
 export function TicketCard({ ticket, event }: TicketCardProps) {
   return (
-    <Card className="overflow-hidden group hover:scale-105 transition-all duration-300 h-full flex flex-col bg-gradient-to-br from-orange-50 to-pink-50 dark:from-orange-900/20 dark:to-pink-900/20 hover:shadow-lg hover:shadow-orange-500/10">
-      <CardHeader className="pb-2 relative">
+  <Card className="ticket-summary gradient-border overflow-hidden group hover:scale-105 transition-all duration-300 h-full flex flex-col">
+  <CardHeader className="pb-2 relative">
         <div className="absolute -top-6 -right-6 bg-solana-purple/10 w-20 h-20 rounded-full blur-xl"/>
         <div className="absolute -bottom-6 -left-6 bg-solana-blue/10 w-20 h-20 rounded-full blur-xl"/>
         <div className="relative">
-          <h3 className="text-lg font-semibold truncate">{event.title}</h3>
-          <div className="flex items-center text-sm text-muted-foreground space-x-2">
+          <h3 className="text-lg font-semibold truncate text-gradient font-serif">{event.title}</h3>
+          <div className="flex items-center text-sm text-muted-foreground space-x-2 font-serif">
             <Calendar className="h-4 w-4" />
             <span>{formatDate(event.date)}</span>
           </div>
-          <div className="flex items-center text-sm text-muted-foreground space-x-2">
+          <div className="flex items-center text-sm text-muted-foreground space-x-2 font-serif">
             <MapPin className="h-4 w-4" />
             <span>{event.location}</span>
           </div>
         </div>
       </CardHeader>
-      <CardContent className="pb-2 space-y-3 flex-grow">
+  <CardContent className="pb-2 space-y-3 flex-grow font-serif">
         <div className="flex items-center justify-between">
           <div className="flex items-center text-sm space-x-2">
             <TicketIcon className="h-4 w-4" />
             <span className="font-medium">Seat {ticket.seatNumber}</span>
           </div>
-          <Badge variant={ticket.status === 'minted' ? "outline" : "secondary"}>
+          <Badge variant={ticket.status === 'minted' ? "outline" : "secondary"} className="score-badge">
             {ticket.status === 'minted' ? 'NFT Minted' : ticket.status}
           </Badge>
         </div>

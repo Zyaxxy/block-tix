@@ -18,6 +18,7 @@ export default defineConfig(({ mode }) => ({
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
+    
   },
   define: {
     // Polyfill for Buffer in the browser

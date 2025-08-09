@@ -17,11 +17,11 @@ export default function NotFound() {
 
   return (
     <MainLayout>
-      <div className="container mx-auto px-4 py-16 flex flex-col items-center justify-center min-h-[70vh]">
+      <div className="container mx-auto px-4 py-16 flex flex-col items-center justify-center min-h-[70vh] ticket-summary">
         <div className="max-w-md w-full text-center space-y-6">
-          <h1 className="text-8xl font-bold text-primary">404</h1>
-          <h2 className="text-3xl font-semibold">Page Not Found</h2>
-          <p className="text-muted-foreground">
+          <h1 className="text-8xl font-bold text-gradient page-heading font-serif">404</h1>
+          <h2 className="text-3xl font-semibold page-heading font-serif">Page Not Found</h2>
+          <p className="text-muted-foreground font-serif">
             The page you're looking for doesn't exist or has been moved.
           </p>
           <div className="pt-4">

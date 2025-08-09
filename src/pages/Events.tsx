@@ -15,9 +15,9 @@ export default function Events() {
   const categories = Array.from(new Set(events.map(event => event.category)));
   
   const filteredEvents = events.filter(event => {
-    const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                          event.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          event.location.toLowerCase().includes(searchTerm.toLowerCase());
+        const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                              event.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                              event.location.toLowerCase().includes(searchTerm.toLowerCase());
     
     const matchesCategory = category === "all" || event.category === category;
     
@@ -26,16 +26,16 @@ export default function Events() {
   
   return (
     <MainLayout>
-      <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-4 py-8 main-section">
         <header className="mb-12">
-          <h1 className="text-4xl font-bold mb-4">Events</h1>
+            <h1 className="text-4xl font-bold mb-4 page-heading text-gradient font-serif">Events</h1>
           <p className="text-muted-foreground text-lg">
-            Discover and book tickets for the hottest events on Solana.
+              Discover and book tickets for the hottest events on Solana.
           </p>
         </header>
         
         {/* Search and Filters */}
-        <div className="bg-card rounded-lg shadow-sm p-6 mb-8">
+          <div className="ticket-summary bg-card rounded-lg shadow-sm p-6 mb-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="relative">
               <Input
@@ -111,18 +111,18 @@ export default function Events() {
             </Select>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="events-section grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredEvents.map((event) => (
               <EventCard key={event.id} event={event} />
             ))}
           </div>
           
           {filteredEvents.length === 0 && (
-            <div className="text-center py-16">
-              <h3 className="text-xl font-semibold mb-2">No events found</h3>
-              <p className="text-muted-foreground">
-                Try adjusting your search or filter criteria.
-              </p>
+              <div className="text-center py-16 ticket-summary">
+                <h3 className="text-xl font-semibold mb-2 page-heading text-gradient font-serif">No events found</h3>
+                <p className="text-muted-foreground font-serif">
+                  Try adjusting your search or check back later for new events.
+                </p>
             </div>
           )}
         </div>

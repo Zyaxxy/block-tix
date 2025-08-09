@@ -47,7 +47,9 @@ export default function Dashboard() {
   if (!walletAddress) {
     return (
       <MainLayout>
-        <ConnectWallet isLoading={isLoading} onConnect={handleConnect} />
+        <div className="main-section">
+          <ConnectWallet isLoading={isLoading} onConnect={handleConnect} />
+        </div>
       </MainLayout>
     );
   }

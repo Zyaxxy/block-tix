@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff, ArrowLeft, LockIcon, Ticket, User } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import Loading from "@/components/Loading";
+import Loading from "@/components/loading";
 
 export default function Auth() {
   const [isLoading, setIsLoading] = useState(false);
@@ -87,7 +87,7 @@ export default function Auth() {
 
       setTimeout(() => {
         navigate("/home");
-      }, 1500);
+      }, 3000);
     } catch (error) {
       console.error("Error:", error);
     } finally {
@@ -114,7 +114,7 @@ export default function Auth() {
             </button>
             
             {/* Feature Carousel - Reduced Size */}
-            <div className="flex flex-col justify-center h-full mt-16">
+            <div className="flex-200 justify-center h-full mt-16">
               <div className="relative h-40">
                 {features.map((feature, index) => (
                   <div 

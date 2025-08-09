@@ -17,16 +17,11 @@ export default function Index() {
   return (
     <MainLayout>
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-solana-dark to-solana-purple/90 text-white">
+  <section className="main-section relative bg-gradient-to-br from-solana-dark to-solana-purple/90 text-white">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&q=80&w=2070')] mix-blend-overlay opacity-30 bg-cover bg-center"></div>
         <div className="container mx-auto px-4 py-16 md:py-24 relative">
           <div className="max-w-3xl">
-            <h1  style={{
-    backgroundImage: "linear-gradient(135deg, #e0e0e0 0%,rgb(114, 113, 113) 40%,rgb(218, 216, 216) 60%, #e0e0e0 100%)",
-    WebkitTextFillColor: "transparent",
-    WebkitBackgroundClip: "text",
-    filter: "brightness(1.1) contrast(1.2)"
-  }} className="font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-4 animate-slide-up [animation-delay:0ms] ">
+            <h1 className="page-heading text-gradient font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-4 animate-slide-up [animation-delay:0ms]">
               Secure Ticketing <br />Powered by Solana
             </h1>
             <p className="font-serif text-lg md:text-xl text-white/90 mb-8 animate-slide-up [animation-delay:100ms]">
@@ -49,10 +44,10 @@ export default function Index() {
       </section>
       
       {/* Features Section */}
-      <section className="font-serif py-16 bg-muted/50">
+  <section className="main-section font-serif py-16 bg-muted/50">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">Why Choose Us ?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <h2 className="text-3xl font-bold text-center mb-12 page-heading text-gradient font-serif">Why Choose Us ?</h2>
+          <div className="events-section grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="p-6 bg-card rounded-lg shadow-sm hover:shadow-md transition-shadow flex flex-col items-center text-center">
               <div className="h-12 w-12 rounded-full bg-primary/50 flex items-center justify-center mb-4">
                 <ShieldCheck className="h-6 w-6 text-black" />
@@ -79,10 +74,10 @@ export default function Index() {
       </section>
       
       {/* Featured Event Section */}
-      <section className="font-serif py-16">
+  <section className="main-section font-serif py-16">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center mb-8">
-            <h2 className="text-3xl font-bold">Featured Event</h2>
+            <h2 className="text-3xl font-bold page-heading text-gradient font-serif">Featured Event</h2>
             <Button variant="ghost" className="group" asChild>
               <Link to="/events" className="flex items-center">
                 View All 
@@ -95,7 +90,7 @@ export default function Index() {
       </section>
       
       {/* Upcoming Events Section */}
-      <section className="font-serif py-16 bg-muted/50">
+  <section className="main-section font-serif py-16 bg-muted/50">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-3xl font-bold">Upcoming Events</h2>
@@ -146,8 +141,8 @@ export default function Index() {
       {/* How It Works Section */}
       <section className="font-serif py-16 bg-muted/50">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">How It Works</h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <h2 className="text-3xl font-bold text-center mb-12 page-heading text-gradient font-serif">How It Works</h2>
+          <div className="events-section grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="p-6 bg-card rounded-lg shadow-sm hover:shadow-md transition-shadow flex flex-col items-center text-center relative">
               <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-primary text-white text-lg font-bold h-8 w-8 rounded-full flex items-center justify-center">
                 1
