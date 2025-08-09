@@ -4,6 +4,7 @@ import { MainLayout } from "@/components/layout/main-layout";
 import { EventCard } from "@/components/events/event-card";
 import { FeaturedEvent } from "@/components/events/featured-event";
 import { AuctionCard } from "@/components/auctions/auction-card";
+import { HeroSection } from "@/components/sections/Hero";
 import { events, generateAuctions, generateTickets } from "@/lib/mock-data";
 import { ArrowRight, Calendar, MapPinned, ShieldCheck, Ticket, Timer, Wallet } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -16,32 +17,7 @@ export default function Index() {
   
   return (
     <MainLayout>
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-solana-dark to-solana-purple/90 text-white">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&q=80&w=2070')] mix-blend-overlay opacity-30 bg-cover bg-center"></div>
-        <div className="container mx-auto px-4 py-16 md:py-24 relative">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 animate-slide-up [animation-delay:0ms]">
-              Secure Ticketing <br />Powered by Solana
-            </h1>
-            <p className="text-lg md:text-xl text-white/90 mb-8 animate-slide-up [animation-delay:100ms]">
-              Buy, sell, and verify event tickets as NFTs with our secure, transparent, and convenient blockchain platform.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 animate-slide-up [animation-delay:200ms]">
-              <Button size="lg" asChild>
-                <Link to="/events">
-                  Explore Events
-                </Link>
-              </Button>
-              <Button size="lg" variant="outline" className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20" asChild>
-                <Link to="/marketplace">
-                  Auction Marketplace
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <HeroSection />
       
       {/* Features Section */}
       <section className="py-16 bg-muted/50">
