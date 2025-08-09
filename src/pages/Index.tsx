@@ -16,30 +16,62 @@ export default function Index() {
   
   return (
     <MainLayout>
-      {/* Hero Section */}
-  <section className="main-section relative bg-gradient-to-br from-solana-dark to-solana-purple/90 text-white">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&q=80&w=2070')] mix-blend-overlay opacity-30 bg-cover bg-center"></div>
-        <div className="container mx-auto px-4 py-16 md:py-24 relative">
-          <div className="max-w-3xl">
-            <h1 className="page-heading text-gradient font-serif text-4xl md:text-5xl lg:text-6xl font-bold mb-4 animate-slide-up [animation-delay:0ms]">
-              Secure Ticketing <br />Powered by Solana
-            </h1>
-            <p className="font-serif text-lg md:text-xl text-white/90 mb-8 animate-slide-up [animation-delay:100ms]">
-              Buy, sell, and verify event tickets as NFTs with our secure, transparent, and convenient blockchain platform.
-            </p>
-            <div className="font-serif flex flex-col sm:flex-row gap-4 animate-slide-up [animation-delay:200ms]">
-              <Button size="lg" variant="default" asChild>
-                <Link to="/events">
-                  Explore Events
-                </Link>
-              </Button>
-              <Button size="lg" variant="outer" className="bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20" asChild>
-                <Link to="/marketplace">
-                  Auction Marketplace
-                </Link>
-              </Button>
-            </div>
+      {/* Hero Section - Sci-Fi, Glassmorphic, Neon Style */}
+      <section className="relative w-full min-h-[700px] flex flex-col justify-between items-center overflow-hidden bg-black">
+        {/* Futuristic Gradient Background with SVG */}
+        <div className="absolute inset-0 z-0">
+          <img src="/bg-main.svg" alt="background" className="w-full h-full object-cover opacity-80" />
+        </div>
+        {/* Glassmorphic Navigation Bar */}
+        <nav className="absolute top-8 left-1/2 -translate-x-1/2 z-10 flex items-center justify-between w-[90vw] max-w-4xl px-8 py-3 rounded-2xl bg-white/10 backdrop-blur-lg border border-white/20 shadow-lg shadow-neon-green/30" style={{boxShadow: '0 0 32px 4px #39ff14a0'}}>
+          <div className="flex items-center gap-8">
+            <span className="font-bold text-white text-lg tracking-wide">BlockTix</span>
+            <ul className="flex items-center gap-6 text-white/80 text-base">
+              <li><a href="#platforms" className="hover:text-neon-green transition">Platforms</a></li>
+              <li><a href="#services" className="hover:text-neon-green transition">Services</a></li>
+              <li><a href="#testimonial" className="hover:text-neon-green transition">Testimonial</a></li>
+            </ul>
           </div>
+          <Button variant="outline" className="rounded-full border-2 border-neon-green text-neon-green px-6 py-2 font-semibold bg-white/10 hover:shadow-[0_0_16px_4px_#39ff14] transition duration-200">
+            Contact Us
+          </Button>
+        </nav>
+        {/* Hero Content */}
+        <div className="relative z-10 flex flex-col items-center justify-center w-full pt-36 pb-24">
+          {/* Pill Tag */}
+          <span className="mb-6 px-6 py-2 rounded-full text-sm font-semibold bg-gradient-to-r from-neon-green/40 to-white/10 border border-neon-green shadow-[0_0_12px_2px_#39ff14] text-neon-green/90 backdrop-blur-md" style={{boxShadow: '0 0 16px 2px #39ff14a0'}}>
+            Software Development
+          </span>
+          {/* Headline */}
+          <h1 className="text-center text-white font-extrabold text-4xl md:text-6xl lg:text-7xl mb-6 drop-shadow-[0_0_24px_#39ff14]">
+            Building the Future on the Blockchain
+          </h1>
+          {/* Subheadline */}
+          <p className="text-center text-lg md:text-2xl text-white/70 max-w-2xl mb-10">
+            Delivers scalable and secure blockchain solutions, reshaping the infrastructure of the digital world.
+          </p>
+          {/* Buttons */}
+          <div className="flex gap-4 mt-2">
+            <Button className="rounded-full px-8 py-3 text-lg font-bold border-2 border-neon-green bg-black/60 text-neon-green shadow-[0_0_16px_2px_#39ff14] hover:bg-neon-green/20 hover:shadow-[0_0_32px_8px_#39ff14] transition duration-200" asChild>
+              <Link to="#learn-more">Learn More</Link>
+            </Button>
+          </div>
+        </div>
+        {/* Glowing Arc/Planet Shape */}
+        <div className="absolute left-1/2 bottom-[-120px] -translate-x-1/2 z-0 pointer-events-none">
+          <svg width="600" height="220" viewBox="0 0 600 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="300" cy="110" rx="260" ry="80" fill="#39ff14" fillOpacity="0.18" />
+            <ellipse cx="300" cy="110" rx="220" ry="60" fill="#39ff14" fillOpacity="0.12" />
+            <ellipse cx="300" cy="110" rx="180" ry="40" fill="#39ff14" fillOpacity="0.08" />
+            <ellipse cx="300" cy="110" rx="140" ry="20" fill="#39ff14" fillOpacity="0.05" />
+            <filter id="glow" x="0" y="0" width="600" height="220">
+              <feGaussianBlur stdDeviation="24" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </svg>
         </div>
       </section>
       
@@ -209,6 +241,5 @@ export default function Index() {
           </div>
         </div>
       </section>
-    </MainLayout>
-  );
+  </MainLayout>
 }
